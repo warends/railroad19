@@ -1,0 +1,75 @@
+<div id="dashboard">
+
+        <section class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h1>Project Dashboard Railroad 19</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>Summary</h3>
+                </div>
+                <div class="col">
+                    <h5>Average Budget</h5>
+                    <h5>{{budget | currency:'USD':true:'1.2-2'}}</h5>
+                </div>
+                <div class="col">
+                    <h5>Records Status</h5>
+                    <ul>
+                        <li *ngFor="let stat of status">{{stat.name}}: {{stat.number}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                        <h3 class="no-margin padded-bottom">Records: {{filteredRecords.length}}</h3>
+                    <p>Enter search term in fields provided and hit enter to search records</p>
+                </div>
+                <div class="col">
+                    <button class="btn pull-right new">Add New Record</button>
+                    <button class="btn pull-right export">Export to Excel</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="row header padded-top">
+                <div class="col" *ngFor="let entry of singleRecord | keys">
+                    <h5 class="no-margin padded-bottom">{{ entry.key }}</h5>
+                    <input #inputString type="text" placeholder="filter" (keyup.enter)="searchRecords(entry.key, inputString.value)" *ngIf="entry.key !== 'created' && entry.key !== 'modified'"/>
+
+                    <div *ngIf="entry.key === 'created'">
+                            <label for="fromDateCreated">From:</label>
+                            <form #myForm="ngForm" novalidate>
+                                <my-date-picker name="fromDateCreated" [options]="myDatePickerOptions" (dateChanged)="onDateSelect(entry.key, $event, true)" required></my-date-picker>
+                            </form>
+
+                            <label for="toDateCreated">To:</label>
+                            <form #myForm="ngForm" novalidate>
+                                <my-date-picker name="toDateCreated" [options]="myDatePickerOptions" (dateChanged)="onDateSelect(entry.key, $event, false)" required></my-date-picker>
+                            </form>
+                    </div>
+
+                    <div *ngIf="entry.key === 'modified'">
+                            <label for="fromDateModified">From:</label>
+                            <form #myForm="ngForm" novalidate *ngIf="entry.key === 'modified'">
+                                <my-date-picker name="toDate" [options]="myDatePickerOptions" (dateChanged)="onDateSelect(entry.key, $event, true)" required></my-date-picker>
+                            </form>
+
+                            <label for="fromDateModified">To:</label>
+                            <form #myForm="ngForm" novalidate *ngIf="entry.key === 'modified'">
+                                <my-date-picker name="fromDate" [options]="myDatePickerOptions" (dateChanged)="onDateSelect(entry.key, $event, false)" required></my-date-picker>
+                            </form>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="records">
+                <div class="row" *ngFor="let record of filteredRecords" record-row [record]="record"></div>
+            </div>
+        </section>
+
+    </div>

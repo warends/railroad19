@@ -1,0 +1,35 @@
+
+      <div class="col">{{ record.title }}</div>
+      <div class="col">{{ record.division }}</div>
+
+     <div class="col" *ngIf='!owner'>
+            {{ record.project_owner }}
+            <img (click)='toggleOwner(record)' class="icon edit" src="../assets/img/edit.svg" alt="Edit"/>
+    </div>
+    <div class="col" *ngIf='owner'>
+        <input type="text" [(ngModel)]="record.project_owner"/>
+        <img (click)='toggleOwner(record)' class="icon save" src="../assets/img/save.svg" alt="Save"/>
+    </div>
+
+    <div class="col" *ngIf='!budget'>
+           {{ record.budget | currency:'USD':true:'1.2-2' }}
+           <img (click)='toggleOwner(budget)' class="icon edit" src="../assets/img/edit.svg" alt="Edit"/>
+   </div>
+   <div class="col" *ngIf='budget'>
+       <input type="text" [(ngModel)]="record.budget"/>
+       <img (click)='toggleOwner(record)' class="icon save" src="../assets/img/save.svg" alt="Save"/>
+   </div>
+
+   <div class="col" *ngIf='!status'>
+            {{ record.status }}
+            <img (click)='toggleStatus(record)' class="icon edit" src="../assets/img/edit.svg" alt="Edit"/>
+    </div>
+    <div class="col" *ngIf='status'>
+        <select name="status" [(ngModel)]='record.status'>
+              <option *ngFor="let stat of statusLabels">{{stat}}</option>
+        </select>
+        <img (click)='toggleStatus(record)' class="icon save" src="../assets/img/save.svg" alt="Save"/>
+    </div>
+
+      <div class="col">{{ record.created  }}</div>
+      <div class="col">{{ record.modified }} <img class="icon save" src="../assets/img/mag-glass.svg" alt="View More"/></div>
