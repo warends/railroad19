@@ -13,11 +13,11 @@
 
     <div class="col" *ngIf='!budget'>
            {{ record.budget | currency:'USD':true:'1.2-2' }}
-           <img (click)='toggleOwner(budget)' class="icon edit" src="../assets/img/edit.svg" alt="Edit"/>
+           <img (click)='toggleBudget(budget)' class="icon edit" src="../assets/img/edit.svg" alt="Edit"/>
    </div>
    <div class="col" *ngIf='budget'>
        <input type="text" [(ngModel)]="record.budget"/>
-       <img (click)='toggleOwner(record)' class="icon save" src="../assets/img/save.svg" alt="Save"/>
+       <img (click)='toggleBudget(record)' class="icon save" src="../assets/img/save.svg" alt="Save"/>
    </div>
 
    <div class="col" *ngIf='!status'>

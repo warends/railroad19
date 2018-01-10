@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
     public records: any;
     public singleRecord: any;
     public budget: number = 0;
+    public filterStrings = [];
     public filteredRecords: string[] = [];
     public status = [
             {
@@ -104,10 +105,17 @@ export class DashboardComponent implements OnInit {
 
     //search through records for each value in text field, pass in column to search, and search value
     searchRecords(key, value){
-        this.filteredRecords = this.records.filter((record) => {
-            console.log(record[key]);
-            return record[key].includes(value);
+        this.filterStrings.push({
+            key: key,
+            searchTerm: value
         });
+        for(let i = 0; i < this.filterStrings.length; i++){
+            this.filterStrings.forEach((element)=>{
+                this.filteredRecords = this.filteredRecords.filter((record) => {
+                    return record[element.key].includes(element.searchTerm);
+                });
+            });
+        }
     }
 
     //add up total budget and divide by length to get avg for analytics
@@ -116,7 +124,6 @@ export class DashboardComponent implements OnInit {
             this.budget += this.records[idx].budget;
         }
         this.budget = this.budget / this.records.length;
-        return this.budget;
     }
 
     //deep clone array of records to manipulate in dashboard.  Can be called again to refresh data

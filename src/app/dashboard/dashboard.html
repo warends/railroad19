@@ -36,7 +36,7 @@
         <section class="container">
             <div class="row header padded-top">
                 <div class="col" *ngFor="let entry of singleRecord | keys">
-                    <h5 class="no-margin padded-bottom">{{ entry.key }}</h5>
+                    <h5 class="no-margin padded-bottom">{{ entry.key | filterstring }}</h5>
                     <input #inputString type="text" placeholder="filter" (keyup.enter)="searchRecords(entry.key, inputString.value)" *ngIf="entry.key !== 'created' && entry.key !== 'modified'"/>
 
                     <div *ngIf="entry.key === 'created'">
