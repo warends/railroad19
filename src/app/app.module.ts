@@ -11,7 +11,7 @@ import { DataService } from './services/data.service';
 import { KeysPipe } from './helpers/keys-pipes';
 import { FilterStringPipe } from './helpers/filter-string.pipe';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RowComponent } from './dashboard/row/record-row.component';
+import { RowComponent } from './dashboard/record-row/record-row.component';
 
 
 @NgModule({
